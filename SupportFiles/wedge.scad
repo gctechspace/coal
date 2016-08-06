@@ -1,10 +1,10 @@
 
-length = 11;
-width = 9;
+length = 13;
+width = 10;
 long_side = 10;
 short_side = 8;
 side_width = 2;
-side_height = 1;
+side_height = .5;
 
 m3_hole = 2.9+0.7;
 m3_nut = 6+0.5;
@@ -14,11 +14,12 @@ module side(extra = 0) {
     l = length / 2 - side_width/2;
     ss = (short_side + extra + side_height) / 2;
     ls = (long_side + extra + side_height) / 2;
+    module side_cube () cube([side_width, side_width, side_height], center=true);
     hull() {
-        translate([-l,0,-ss]) cube(side_width, center=true);
-        translate([-l,0,ss]) cube(side_width, center=true);
-        translate([l,0,ls]) cube(side_width, center=true);
-        translate([l,0,-ls]) cube(side_width, center=true);
+        translate([-l,0,-ss]) side_cube();
+        translate([-l,0,ss]) side_cube();
+        translate([l,0,ls]) side_cube();
+        translate([l,0,-ls]) side_cube();
     }
 }
 
